@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Make My Day</title>
+	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Happy+Monkey&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		header{
+			background-color: lightgreen;
+			padding: 20px;
+			height: 120px;
+			text-align: center;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 85px;
+			font-family: 'Happy Monkey', cursive;
+		}
+		.container{
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.intro{
+			margin-top: 20px;
+			padding: 20px;
+			font-size: 20px;
+			font-family: arial;
+		}
+		.posts{
+			background-color: #eea790;
+			width: 45%;
+			float: left;
+			margin: 2.5%;
+			border-radius: 3%;
+		}
+		.makePost{
+			background-color: grey;
+			width: 45%;
+			float: left;
+			margin: 2.5%;
+			border-radius: 3%;
+		}
+		.makePostInst, .makePostsTitle{
+			background-color: white;
+			text-align: center;
+			margin: 20px;
+			padding-top: 10px;
+			padding-bottom: 10px;
+			font-family: arial;
+			font-size: 50px;
+			border: 3px solid #eea790;
+			border-radius: 5%;
+		}
+		.makePostsTitle{
+			border: 3px solid grey;
+		}
+		.theMessage, .altMessage, .theNoMessage{
+			text-align: center;
+			margin: 20px;
+			padding: 10px;
+			background-color: lightgreen;
+			font-family: 'Montserrat', sans-serif;
+			border-radius: 5%;
+		}
+		.theMessage{
+			background-color: white;
+		}
+		textarea{
+			height: 200px;
+			width: 90%;
+			border-radius: 2%;
+			padding: 5px;
+			font-size: 20px;
+			background-color: lightgreen;
+		}
+		textarea::placeholder{
+			color: black;
+			font-size: 20px;
+		}
+		#button{
+			margin-bottom: 20px;
+			padding: 10px;
+			border-radius: 5%;
+		}
+		#button:hover{
+			background-color: #eea790;
+		}
+		footer{
+			text-align: right;
+		}
+	</style>
+</head>
+<body>
+	<header>Welcome to <b><i>Make My Day</i></b></header>
+	<main>
+		<div class="container">
+			<div class="intro">Here, you can read positive messages to brighten your day or you can spread a positive message (anonymously) to brighten other people's days!</div>
+		</div>
+		<div class="posts">
+			<div class="makePostsTitle">Read Positive Messages</div>
+			{% if listLen > 0 %}
+				{% for message in messageList %}
+					{% if messageList.index(message) % 2!=0 %}
+						<p class="theMessage">{{ message }}</p>
+					{% else %}
+						<p class="altMessage">{{ message }}</p>
+					{% endif %}
+				{% endfor %}
+			{% else %}
+				<p class="theNoMessage">There are no new positive messages at this time.</p>
+			{% endif %}
+		</div>
+		<div class="makePost">
+			<div class="makePostInst">Spread a Positive Message</div>
+			<div class="makePostWrapper">
+				<form method="POST" action="">
+					<div class="container">
+						<textarea name="theActPost" class="actualPost" placeholder="Enter Message Here:" onkeydown="return (event.keyCode!=13);"></textarea>
+					</div>
+					<br>
+					<div class="container">
+						<input type="submit" id="button" name="submit" value="Post Message">
+					</div>
+				</form>
+			</div>
+		</div>
+	</main>
+	<footer>
+		&copy; Make My Day, {{ year }}
+	</footer>
+</body>
+</html>
