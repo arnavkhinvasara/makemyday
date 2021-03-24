@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, send_from_directory
 from datetime import datetime
+from textblob import TextBlob
 app = Flask(__name__)
 
 @app.route("/", methods=["POST", "GET"])
@@ -10,13 +11,25 @@ def index():
 	fileItself = readFile()
 	if request.method == "POST":
 		theMessage = request.form["theActPost"].strip()
-		if theMessage in fileItself:
-			return render_template("index.html", messageList = fileItself, listLen = len(fileItself), year=year)
+		if theMessage in fileItself or sentiment(theMessage)==False:
+			if theMessage in fileItself:
+				errMess = "Your message already exists."
+			else:
+				errMess = "Your message was not positive. It was either negative or neutral."
+			return render_template("index.html", messageList = fileItself, listLen = len(fileItself), year=year, errMess=errMess)
 		addToFile(theMessage, timeNow)
 		newFile = readFile()
-		return render_template("index.html", messageList = newFile, listLen = len(newFile), year=year)
+		return render_template("index.html", messageList = newFile, listLen = len(newFile), year=year, errMess='')
 	else:
-		return render_template("index.html", messageList = fileItself, listLen = len(fileItself), year=year)
+		return render_template("index.html", messageList = fileItself, listLen = len(fileItself), year=year, errMess='')
+
+def sentiment(text):
+	inst = TextBlob(text)
+	pol = inst.sentiment.polarity
+	if pol<0 or pol==0:
+		return False
+	elif pol>0 and pol<=1:
+		return True
 
 def dbCommand():
 	with open("database.txt") as db:
