@@ -47,7 +47,6 @@ def removeFromFile(time):
 		secondPart = message.split(" ---- ")[1]
 		dataDict[secondPart] = firstPart
 	allTimes = list(dataDict.keys())
-	print(allTimes)
 	for aTime in allTimes:
 		if (time - datetime.fromisoformat(aTime)).days >= 1:
 			del dataDict[aTime]
