@@ -7,7 +7,7 @@ app = Flask(__name__)
 def index():
 	timeNow = datetime.now()
 	year = str(timeNow.year)
-	removeFromFile(timeNow)
+	removeFromFile(str(timeNow))
 	fileItself = readFile()
 	if request.method == "POST":
 		theMessage = request.form["theActPost"].strip()
@@ -39,6 +39,29 @@ def dbCommand():
 			allMessages.append(line.strip())
 	return allMessages
 
+def slicer(aString):
+	if aString[0]=="0":
+		newString = aString[1:]
+		return newString
+	else:
+		return aString
+
+def timeDiff(current, past):
+	currentFirst, currentSecond = current.split(" ")[0], current.split(" ")[1]
+	currentYear, currentMonth, currentDay = currentFirst.split("-")[0], currentFirst.split("-")[1], currentFirst.split("-")[2]
+	currentHour = currentSecond.split(":")[0]
+	pastFirst, pastSecond = past.split(" ")[0], past.split(" ")[1]
+	pastYear, pastMonth, pastDay = pastFirst.split("-")[0], pastFirst.split("-")[1], pastFirst.split("-")[2]
+	pastHour = pastSecond.split(":")[0]
+	currentMonth, currentDay, currentHour = slicer(currentMonth), slicer(currentDay), slicer(currentHour)
+	pastMonth, pastDay, pastHour = slicer(pastMonth), slicer(pastDay), slicer(pastHour)
+	if int(currentYear)==int(pastYear) and int(currentMonth)==int(pastMonth):
+		if int(currentDay)==int(pastDay)+1 and currentHour<pastHour:
+			return True
+		elif int(currentDay)==int(pastDay):
+			return True
+	return False
+
 def removeFromFile(time):
 	allMessages = dbCommand()
 	dataDict = {}
@@ -48,7 +71,8 @@ def removeFromFile(time):
 		dataDict[secondPart] = firstPart
 	allTimes = list(dataDict.keys())
 	for aTime in allTimes:
-		if (time - datetime.fromisoformat(aTime)).days >= 1:
+		strATime = str(aTime)
+		if timeDiff(time, strATime)==False:
 			del dataDict[aTime]
 	with open("database.txt", "w") as db:
 		dataList = list(dataDict.keys())
@@ -75,3 +99,4 @@ def favicon():
 
 if __name__ == "__main__":
 	app.run(debug=True)
+	#app.run(port=80, host="0.0.0.0")
