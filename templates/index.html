@@ -69,10 +69,14 @@
 		.makePostsTitle{
 			border: 3px solid grey;
 		}
-		.errMess{
+		.errMess, .warning{
 			color: white;
 			font-family: arial;
 			margin-bottom: 20px;
+			margin-right: 10px;
+			margin-left: 10px;
+			font-size: 30px;
+			text-align: center;
 		}
 		.theMessage, .altMessage, .theNoMessage{
 			text-align: center;
@@ -135,6 +139,9 @@
 		</div>
 		<div class="makePost">
 			<div class="makePostInst">Spread a Positive Message</div>
+			<div class="container">
+				<div class="warning"><b>Remember to use words that have positive connotations!</b></div>
+			</div>
 			<div class="container">
 				<div class="errMess">{{ errMess }}</div>
 			</div>
