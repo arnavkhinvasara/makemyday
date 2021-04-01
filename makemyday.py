@@ -26,10 +26,15 @@ def index():
 def sentiment(text):
 	inst = TextBlob(text)
 	pol = inst.sentiment.polarity
+	"""
 	if pol<0 or pol==0:
 		return False
 	elif pol>0 and pol<=1:
 		return True
+	"""
+	if pol<0:
+		return False
+	return True
 
 def dbCommand():
 	with open("database.txt") as db:
