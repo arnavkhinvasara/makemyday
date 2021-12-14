@@ -1,0 +1,11 @@
+ * Serving Flask app '__init__' (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://172.31.83.84:80/ (Press CTRL+C to quit)
+73.170.49.174 - - [14/Dec/2021 06:17:58] "GET / HTTP/1.1" 200 -
+73.170.49.174 - - [14/Dec/2021 06:18:07] "GET / HTTP/1.1" 200 -
+73.170.49.174 - - [14/Dec/2021 06:21:01] "GET / HTTP/1.1" 200 -

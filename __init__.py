@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, send_from_directory
+from flask import Flask, render_template
+from flask import request
 from datetime import datetime
 from textblob import TextBlob
 app = Flask(__name__)
@@ -7,7 +8,7 @@ app = Flask(__name__)
 def index():
 	timeNow = datetime.now()
 	year = str(timeNow.year)
-	removeFromFile(str(timeNow))
+	#removeFromFile(str(timeNow))
 	fileItself = readFile()
 	if request.method == "POST":
 		theMessage = request.form["theActPost"].strip()
