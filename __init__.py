@@ -12,11 +12,8 @@ def index():
 	fileItself = readFile()
 	if request.method == "POST":
 		theMessage = request.form["theActPost"].strip()
-		if theMessage in fileItself or sentiment(theMessage)==False:
-			if theMessage in fileItself:
-				errMess = "Your message already exists."
-			else:
-				errMess = "Your message was not positive. It was either negative or neutral."
+		if sentiment(theMessage)==False:
+			errMess = "ERROR: Your message was not positive. It was either negative or neutral."
 			return render_template("index.html", messageList = fileItself, listLen = len(fileItself), year=year, errMess=errMess)
 		addToFile(theMessage, timeNow)
 		newFile = readFile()
@@ -33,7 +30,9 @@ def sentiment(text):
 	elif pol>0 and pol<=1:
 		return True
 	"""
-	if pol<0:
+	if pol<0.5:
+		return False
+	if "not" in text:
 		return False
 	return True
 
@@ -51,23 +50,7 @@ def slicer(aString):
 		return newString
 	else:
 		return aString
-
-def timeDiff(current, past):
-	currentFirst, currentSecond = current.split(" ")[0], current.split(" ")[1]
-	currentYear, currentMonth, currentDay = currentFirst.split("-")[0], currentFirst.split("-")[1], currentFirst.split("-")[2]
-	currentHour = currentSecond.split(":")[0]
-	pastFirst, pastSecond = past.split(" ")[0], past.split(" ")[1]
-	pastYear, pastMonth, pastDay = pastFirst.split("-")[0], pastFirst.split("-")[1], pastFirst.split("-")[2]
-	pastHour = pastSecond.split(":")[0]
-	currentMonth, currentDay, currentHour = slicer(currentMonth), slicer(currentDay), slicer(currentHour)
-	pastMonth, pastDay, pastHour = slicer(pastMonth), slicer(pastDay), slicer(pastHour)
-	if int(currentYear)==int(pastYear) and int(currentMonth)==int(pastMonth):
-		if int(currentDay)==int(pastDay)+1 and currentHour<pastHour:
-			return True
-		elif int(currentDay)==int(pastDay):
-			return True
-	return False
-
+"""
 def removeFromFile(time):
 	allMessages = dbCommand()
 	dataDict = {}
@@ -85,7 +68,7 @@ def removeFromFile(time):
 		for timePart in dataList:
 			messagePart = dataDict[timePart]
 			db.write(messagePart+" ---- "+timePart+"\n")
-
+"""
 def addToFile(message, time):
 	with open("database.txt", "a") as db:
 		db.write(message+" ---- "+str(time)+"\n")
@@ -104,5 +87,5 @@ def favicon():
 	return send_from_directory(app.root_path+'/static','favicon.ico',mimetype='image/vnd.microsoft.icon')
 
 if __name__ == "__main__":
-	#app.run(debug=True)
+	app.run(debug=True)
 	app.run(port=80, host="0.0.0.0")
