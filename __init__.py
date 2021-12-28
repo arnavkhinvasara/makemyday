@@ -23,7 +23,9 @@ def index():
 			if fileItself[0] not in newestFile:
 				newestFile.append(fileItself[0])
 			return render_template("index.html", messageList = newestFile, listLen = len(fileItself), year=year, errMess=errMess)
-		addToFile(theMessage, timeNow)
+		newFile = readFile()
+		if theMessage not in newFile:
+			addToFile(theMessage, timeNow)
 		newFile = readFile()
 		newestFile = random.sample(newFile, 3)
 		if newFile[0] not in newestFile:
