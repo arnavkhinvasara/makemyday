@@ -7,15 +7,19 @@
 	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Happy+Monkey&display=swap" rel="stylesheet">
-	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Alice&display=swap" rel="stylesheet">
 	<style type="text/css">
 		*{
 			margin: 0;
 			padding: 0;
+			-moz-user-select: none;
+			-webkit-user-select: none;
 		}
 		header{
-			background-color: lightgreen;
+			background-color: #6495ED;
+			color: white;
 			padding: 20px;
 			height: 120px;
 			text-align: center;
@@ -23,7 +27,7 @@
 			justify-content: center;
 			align-items: center;
 			font-size: 85px;
-			font-family: 'Happy Monkey', cursive;
+			font-family: 'Sacramento', cursive;
 		}
 		.container{
 			width: 100%;
@@ -31,29 +35,80 @@
 			justify-content: center;
 			align-items: center;
 		}
+		.imageIntrigue, .descriptionIntrigue{
+			width: 45%;
+			float: left;
+			margin: 2.5%;
+			height:  300px;
+		}
+		#tester{
+			width: 100%;
+			height: 100%;
+			animation: fadeIn ease 7s;
+		  	-webkit-animation: fadeIn ease 7s;
+		  	-moz-animation: fadeIn ease 7s;
+		  	-o-animation: fadeIn ease 7s;
+		  	-ms-animation: fadeIn ease 7s;
+		}
+		@keyframes fadeIn {
+		  0% {
+		    opacity:0;
+		  }
+		  100% {
+		    opacity:1;
+		  }
+		}
+		@-moz-keyframes fadeIn {
+		  0% {
+		    opacity:0;
+		  }
+		  100% {
+		    opacity:1;
+		  }
+		}
+		@-webkit-keyframes fadeIn {
+		  0% {
+		    opacity:0;
+		  }
+		  100% {
+		    opacity:1;
+		  }
+		}
+		@-o-keyframes fadeIn {
+		  0% {
+		    opacity:0;
+		  }
+		  100% {
+		    opacity:1;
+		  }
+		}
+		@-ms-keyframes fadeIn {
+		  0% {
+		    opacity:0;
+		  }
+		  100% {
+		    opacity:1;
+		  }
+		}
 		.intro, .updates{
 			margin-top: 20px;
 			padding: 20px;
-			font-size: 22px;
-			font-family: arial;
+			font-size: 25px;
+			font-family: 'Alice', serif;
 			text-align: center;
 		}
 		.updates{
-			font-size: 15px;
+			font-size: 20px;
 		}
-		.posts{
-			background-color: #eea790;
+		.posts, .makePost{
+			background-color: #ADD8E6;
 			width: 45%;
 			float: left;
 			margin: 2.5%;
 			border-radius: 3%;
 		}
 		.makePost{
-			background-color: grey;
-			width: 45%;
-			float: left;
-			margin: 2.5%;
-			border-radius: 3%;
+			background-color: #0000e6;
 		}
 		.makePostInst, .makePostsTitle{
 			background-color: white;
@@ -61,17 +116,17 @@
 			margin: 20px;
 			padding-top: 10px;
 			padding-bottom: 10px;
-			font-family: arial;
+			font-family: 'Sacramento', cursive;
 			font-size: 50px;
-			border: 3px solid #eea790;
+			border: 3px solid #ADD8E6;
 			border-radius: 5%;
 		}
 		.makePostsTitle{
-			border: 3px solid grey;
+			border: 3px solid #0000e6;
 		}
 		.errMess, .warning{
 			color: white;
-			font-family: arial;
+			font-family: 'Alice', serif;
 			margin-bottom: 20px;
 			margin-right: 10px;
 			margin-left: 10px;
@@ -79,18 +134,29 @@
 			text-align: center;
 		}
 		.errMess{
-			color:  darkgreen;
+			color: #6495ED;
+			font-weight: bold;
 		}
 		.theMessage, .altMessage, .theNoMessage{
 			text-align: center;
 			margin: 20px;
-			padding: 10px;
-			background-color: lightgreen;
-			font-family: 'Montserrat', sans-serif;
+			background-color: #4682B4;
 			border-radius: 5%;
 		}
 		.theMessage{
-			background-color: white;
+			background-color: #0000e6;
+		}
+		.theMessage button, .altMessage button{
+			background-color: transparent;
+			text-align: center;
+			color: white;
+			outline: none;
+			width: 100%;
+			height: 100%;
+			font-family: 'Alice', serif;
+			padding-top: 10px;
+			padding-bottom: 10px;
+			border-radius: 5%;
 		}
 		textarea{
 			height: 200px;
@@ -98,11 +164,12 @@
 			border-radius: 2%;
 			padding: 5px;
 			font-size: 20px;
-			background-color: lightgreen;
+			background-color: #ADD8E6;
 		}
 		textarea::placeholder{
 			color: black;
 			font-size: 20px;
+			font-family: 'Alice', serif;
 		}
 		#button{
 			margin-bottom: 20px;
@@ -110,27 +177,42 @@
 			border-radius: 5%;
 		}
 		#button:hover{
-			background-color: #eea790;
+			background-color: #6495ED;
 		}
 	</style>
 </head>
 <body>
-	<header><b><i>My Day Maker</i></b></header>
+	<header><b>My Day Maker</b></header>
 	<main>
-		<div class="container">
-			<div class="intro">Here, you can read positive messages to brighten your day or you can spread a positive message (anonymously) to brighten other people's days!</div>
+		<br><br>
+		<div class="imageIntrigue">
+			<div class="container" id="tester">
+				<img src="../static/smiley_image.jpg" alt="Smiley Face Image" width="75%" height="100%">
+			</div>
 		</div>
-		<div class="container">
-			<div class="updates">The opportunity to spread motivational links and rate the most inspirational ones will all be <b>coming out soon</b>!</div>
+		<div class="descriptionIntrigue">
+			<div class="container">
+				<div class="intro">Here, you can read positive messages if you are having a bad day or you can spread a positive message (anonymously) to brighten other people's days!</div>
+			</div>
+			<div class="container">
+				<div class="updates">The opportunity to spread motivational videos will be <b>coming out soon</b>!</div>
+			</div>
 		</div>
 		<div class="posts">
-			<div class="makePostsTitle">Read Positive Messages</div>
+			<div class="makePostsTitle"><b>Read Positive Messages</b></div>
+			<div class="container">Click on the message that impacts you the most!</div>
 			{% if listLen > 0 %}
 				{% for message in messageList %}
 					{% if messageList.index(message) % 2!=0 %}
-						<p class="theMessage">{{ message }}</p>
+						<!-- <p class="theMessage">{{ message }}</p> -->
+						<div class="theMessage">
+							<button type="button" onclick="history.go(0)">{{ message }}</button>
+						</div>
 					{% else %}
-						<p class="altMessage">{{ message }}</p>
+						<!-- <p class="altMessage">{{ message }}</p> -->
+						<div class="altMessage">
+							<button type="button" onclick="history.go(0)">{{ message }}</button>
+						</div>
 					{% endif %}
 				{% endfor %}
 			{% else %}
@@ -138,9 +220,9 @@
 			{% endif %}
 		</div>
 		<div class="makePost">
-			<div class="makePostInst">Spread a Positive Message</div>
+			<div class="makePostInst"><b>Spread a Positive Message</b></div>
 			<div class="container">
-				<div class="warning"><b>Remember to use words that have positive connotations!</b></div>
+				<div class="warning"><b>Remember to be strictly positive and kind!</b></div>
 			</div>
 			<div class="container">
 				<div class="errMess">{{ errMess }}</div>

@@ -2,6 +2,7 @@ from flask import Flask, render_template
 from flask import request
 from datetime import datetime
 from textblob import TextBlob
+import random
 app = Flask(__name__)
 
 @app.route("/", methods=["POST", "GET"])
@@ -12,14 +13,28 @@ def index():
 	fileItself = readFile()
 	if request.method == "POST":
 		theMessage = request.form["theActPost"].strip()
+		errMess = ""
 		if sentiment(theMessage)==False:
-			errMess = "ERROR: Your message was not positive. It was either negative or neutral."
-			return render_template("index.html", messageList = fileItself, listLen = len(fileItself), year=year, errMess=errMess)
+			errMess = "ERROR: Your message was not positive enough. Refrain from using words such as 'not', 'don't', etc."
+		elif spacingFilter(theMessage)==False:
+			errMess = "ERROR: Please check the spacing in your message."
+		if errMess!="":
+			newestFile = random.sample(fileItself, 3)
+			if fileItself[0] not in newestFile:
+				newestFile.append(fileItself[0])
+			return render_template("index.html", messageList = newestFile, listLen = len(fileItself), year=year, errMess=errMess)
 		addToFile(theMessage, timeNow)
 		newFile = readFile()
-		return render_template("index.html", messageList = newFile, listLen = len(newFile), year=year, errMess='')
+		newestFile = random.sample(newFile, 3)
+		if newFile[0] not in newestFile:
+			newestFile.append(newFile[0])
+		print(newestFile)
+		return render_template("index.html", messageList = newestFile, listLen = 4, year=year, errMess='')
 	else:
-		return render_template("index.html", messageList = fileItself, listLen = len(fileItself), year=year, errMess='')
+		newestFile = random.sample(fileItself, 3)
+		if fileItself[0] not in newestFile:
+			newestFile.append(fileItself[0])
+		return render_template("index.html", messageList = newestFile, listLen = 4, year=year, errMess='')
 
 def sentiment(text):
 	inst = TextBlob(text)
@@ -30,10 +45,19 @@ def sentiment(text):
 	elif pol>0 and pol<=1:
 		return True
 	"""
-	if pol<0.5:
+	if pol<0.25:
 		return False
 	if "not" in text:
 		return False
+	return True
+
+def spacingFilter(text):
+	textList = text.split()
+	for element in textList:
+		if len(element)==1 and textList.index(element)<=len(textList)-3:
+			if len(textList[textList.index(element)+1])==1:
+				if len(textList[textList.index(element)+2])==1:
+					return False
 	return True
 
 def dbCommand():
