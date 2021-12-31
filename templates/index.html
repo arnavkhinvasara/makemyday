@@ -9,6 +9,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Happy+Monkey&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Mali:wght@300&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Alice&display=swap" rel="stylesheet">
 	<style type="text/css">
 		*{
@@ -18,7 +19,7 @@
 			-webkit-user-select: none;
 		}
 		header{
-			background-color: #6495ED;
+			background-color: #4169E1;
 			color: white;
 			padding: 20px;
 			height: 120px;
@@ -39,61 +40,44 @@
 			width: 45%;
 			float: left;
 			margin: 2.5%;
-			height:  300px;
+			height:  400px;
+		}
+		.descriptionIntrigue{
+			display:  flex;
 		}
 		#tester{
 			width: 100%;
 			height: 100%;
-			animation: fadeIn ease 7s;
-		  	-webkit-animation: fadeIn ease 7s;
-		  	-moz-animation: fadeIn ease 7s;
-		  	-o-animation: fadeIn ease 7s;
-		  	-ms-animation: fadeIn ease 7s;
+			position: relative;
+			top: 0;
+			left: 0;
 		}
-		@keyframes fadeIn {
-		  0% {
-		    opacity:0;
-		  }
-		  100% {
-		    opacity:1;
-		  }
+		#tester #image1{
+			border-radius: 10%;
+			position: relative;
+	        top: 0;
+	        left: 0;
+			animation: fadeInandOut 4s infinite;
 		}
-		@-moz-keyframes fadeIn {
-		  0% {
-		    opacity:0;
-		  }
-		  100% {
-		    opacity:1;
-		  }
+		@keyframes fadeInandOut {
+			0%,100% { opacity: 0; }
+			50% { opacity: 1; }
 		}
-		@-webkit-keyframes fadeIn {
-		  0% {
-		    opacity:0;
-		  }
-		  100% {
-		    opacity:1;
-		  }
+		#tester #image2{
+			border-radius: 10%;
+			position: absolute;
+	        top: 0;
+	        left: 0;
+			animation: fadeInandOut5 4s infinite;
 		}
-		@-o-keyframes fadeIn {
-		  0% {
-		    opacity:0;
-		  }
-		  100% {
-		    opacity:1;
-		  }
-		}
-		@-ms-keyframes fadeIn {
-		  0% {
-		    opacity:0;
-		  }
-		  100% {
-		    opacity:1;
-		  }
+		@keyframes fadeInandOut5{
+			0%,100% { opacity: 1; }
+			50% { opacity: 0; }
 		}
 		.intro, .updates{
 			margin-top: 20px;
 			padding: 20px;
-			font-size: 25px;
+			font-size: 35px;
 			font-family: 'Alice', serif;
 			text-align: center;
 		}
@@ -108,7 +92,7 @@
 			border-radius: 3%;
 		}
 		.makePost{
-			background-color: #0000e6;
+			background-color: #6495ED;
 		}
 		.makePostInst, .makePostsTitle{
 			background-color: white;
@@ -116,13 +100,17 @@
 			margin: 20px;
 			padding-top: 10px;
 			padding-bottom: 10px;
-			font-family: 'Sacramento', cursive;
+			font-family: 'Mali', cursive;
 			font-size: 50px;
 			border: 3px solid #ADD8E6;
 			border-radius: 5%;
 		}
 		.makePostsTitle{
 			border: 3px solid #0000e6;
+		}
+		@keyframes fadeInAndOut4{
+			0%,100% { opacity: 0.3; }
+			50% { opacity: 1; }
 		}
 		.errMess, .warning{
 			color: white;
@@ -132,6 +120,13 @@
 			margin-left: 10px;
 			font-size: 30px;
 			text-align: center;
+		}
+		.warning{
+			animation: fadeInAndOut3 5s infinite;
+		}
+		@keyframes fadeInAndOut3{
+			0%,100% { opacity: 0.3; }
+			50% { opacity: 1; }
 		}
 		.errMess{
 			color: #6495ED;
@@ -145,6 +140,18 @@
 		}
 		.theMessage{
 			background-color: #0000e6;
+			animation: pulse 5s infinite;
+		}
+		@keyframes pulse{
+			0% {background-color: #4682B4;}
+			50% {background-color: #0000e6;}
+		}
+		.altMessage{
+			animation: pulse2 4s infinite;
+		}
+		@keyframes pulse2{
+			0% {background-color: #0000e6;}
+			50% {background-color: #4682B4;}
 		}
 		.theMessage button, .altMessage button{
 			background-color: transparent;
@@ -158,6 +165,12 @@
 			padding-top: 10px;
 			padding-bottom: 10px;
 			border-radius: 5%;
+		}
+		.theMessage button:hover{
+			background-color: #4169E1;
+		}
+		.altMessage button:hover{
+			background-color: #6495ED;
 		}
 		textarea{
 			height: 200px;
@@ -176,9 +189,15 @@
 			margin-bottom: 20px;
 			padding: 10px;
 			border-radius: 5%;
+			font-family: 'Mali', cursive;
+			animation: fadeInandOut2 6s infinite;
+		}
+		@keyframes fadeInandOut2 {
+			0%,100% { opacity: 0.2; }
+			50% { opacity: 1; }
 		}
 		#button:hover{
-			background-color: #6495ED;
+			background-color: #ADD8E6;
 		}
 	</style>
 </head>
@@ -188,15 +207,13 @@
 		<br><br>
 		<div class="imageIntrigue">
 			<div class="container" id="tester">
-				<img src="../static/smiley_image.jpg" alt="Smiley Face Image" width="75%" height="100%">
+				<img src="../static/beautiful_day.jpg" alt="Beautiful Image" width="100%" height="100%" id="image1">
+				<img src="../static/beautiful_day_2.jpg" alt="Beautiful Image" width="100%" height="100%" id="image2">
 			</div>
 		</div>
 		<div class="descriptionIntrigue">
 			<div class="container">
 				<div class="intro">Here, you can read positive messages if you are having a bad day or you can spread a positive message (anonymously) to brighten other people's days!</div>
-			</div>
-			<div class="container">
-				<div class="updates">The opportunity to spread motivational videos will be <b>coming out soon</b>!</div>
 			</div>
 		</div>
 		<div class="posts">
